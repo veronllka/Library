@@ -1,0 +1,112 @@
+<Window x:Class="Library.Views.LogoutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Выход из системы" 
+        Width="450" Height="280"
+        MinWidth="350" MinHeight="250"
+        WindowStyle="None" AllowsTransparency="True" 
+        Background="Transparent" WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" Topmost="True"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <!-- Импорт глобальных стилей -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/GlobalStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Упрощенные анимации -->
+            <Storyboard x:Key="DialogEnterAnimation">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                            From="0" To="1" Duration="0:0:0.2" />
+            </Storyboard>
+
+            <Storyboard x:Key="DialogExitAnimation">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                            From="1" To="0" Duration="0:0:0.2" />
+            </Storyboard>
+
+            <!-- Стиль для кнопок диалога -->
+            <Style x:Key="DialogButton" TargetType="Button" BasedOn="{StaticResource GlassButton}">
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Margin" Value="10,0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource DialogEnterAnimation}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <!-- Полупрозрачный фон -->
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#AA000000"/>
+        </Grid.Background>
+        
+        <!-- Основной диалог -->
+        <Border Style="{StaticResource GlassCard}" 
+                MinWidth="300" MinHeight="200"
+                MaxWidth="600" MaxHeight="400"
+                Margin="20"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            
+            <Grid>
+                <!-- Добавляем возможность перетаскивания окна -->
+                <Rectangle Fill="Transparent" MouseDown="Rectangle_MouseDown" />
+                
+                <StackPanel VerticalAlignment="Center">
+                    <!-- Иконка и заголовок -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,25">
+                        <iconPacks:PackIconMaterial Kind="ExitToApp" Width="36" Height="36" 
+                                                Foreground="{StaticResource AccentColor}" Margin="0,0,15,0" />
+                        
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Выход из системы" FontSize="20" FontWeight="SemiBold"
+                                    Foreground="{StaticResource TextPrimaryColor}"/>
+                            <TextBlock Text="Подтверждение действия" FontSize="12" 
+                                    Foreground="{StaticResource TextSecondaryColor}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Сообщение -->
+                    <TextBlock Text="Вы действительно хотите выйти из системы?" 
+                            FontSize="16" FontWeight="Medium"
+                            Foreground="{StaticResource TextPrimaryColor}"
+                            HorizontalAlignment="Center" TextAlignment="Center"
+                            Margin="20,0,20,30"/>
+
+                    <!-- Кнопки -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="LogoutButton" Style="{StaticResource DialogButton}"
+                            Background="{StaticResource ErrorGradient}"
+                            BorderBrush="{StaticResource ErrorColor}"
+                            Click="LogoutButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Logout" Width="18" Height="18" Margin="0,0,8,0"/>
+                                <TextBlock Text="Выйти"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <Button x:Name="CancelButton" Style="{StaticResource DialogButton}"
+                            Background="{StaticResource SecondaryGradient}"
+                            BorderBrush="{StaticResource SecondaryColor}"
+                            Click="CancelButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Cancel" Width="18" Height="18" Margin="0,0,8,0"/>
+                                <TextBlock Text="Отмена"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window> 

@@ -1,0 +1,83 @@
+<Window x:Class="Library.Views.ReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Отчеты библиотеки" Height="700" Width="1400"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="20">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ChartLine" Width="32" Height="32" 
+                                          Foreground="White" Margin="0,0,15,0"/>
+                <StackPanel>
+                    <TextBlock Text="📊 Отчеты и аналитика" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="Статистика и анализ деятельности библиотеки" FontSize="12" Foreground="LightGray"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Основной контент -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Панель управления -->
+            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                <GroupBox Header="Параметры отчета" Margin="0,0,0,20">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Период:" Margin="0,0,0,5"/>
+                        <DatePicker x:Name="StartDatePicker" Margin="0,0,0,10"/>
+                        <DatePicker x:Name="EndDatePicker" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Количество записей:" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="TopCountComboBox" Margin="0,0,0,10">
+                            <ComboBoxItem Content="10" IsSelected="True"/>
+                            <ComboBoxItem Content="25"/>
+                            <ComboBoxItem Content="50"/>
+                            <ComboBoxItem Content="Все"/>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Типы отчетов">
+                    <StackPanel Margin="10">
+                        <Button x:Name="BookPopularityButton" Content="📚 Популярность книг" 
+                               Click="GenerateBookPopularityReport_Click" Margin="0,5" Padding="10"/>
+                        <Button x:Name="ReaderActivityButton" Content="👥 Активность читателей" 
+                               Click="GenerateReaderActivityReport_Click" Margin="0,5" Padding="10"/>
+                        <Button x:Name="GenreStatisticsButton" Content="📊 Статистика жанров" 
+                               Click="GenerateGenreStatisticsReport_Click" Margin="0,5" Padding="10"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+            <!-- Область отчета -->
+            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Background="White">
+                <ScrollViewer>
+                    <StackPanel x:Name="ReportContentPanel" Margin="20">
+                        <TextBlock Text="Выберите тип отчета для генерации" 
+                                  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Foreground="Gray" x:Name="WelcomeText"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Статус-бар -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готов к генерации отчетов"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window> 

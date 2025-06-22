@@ -1,0 +1,126 @@
+<Window x:Class="Library.Views.AdvancedDatabaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="Сложные объекты базы данных" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource MahApps.Styles.Window}">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Работа со сложными объектами базы данных" 
+                   FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        
+        <!-- Панель управления -->
+        <UniformGrid Grid.Row="1" Rows="2" Columns="3" Margin="0,0,0,20">
+            <!-- Представления -->
+            <GroupBox Header="Представления" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnPopularBooks" Content="Популярные книги" 
+                            Click="BtnPopularBooks_Click" Margin="5"/>
+                    <Button Name="BtnReaderActivity" Content="Активность читателей" 
+                            Click="BtnReaderActivity_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Функции -->
+            <GroupBox Header="Функции" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnCalculateFine" Content="Расчёт штрафа" 
+                            Click="BtnCalculateFine_Click" Margin="5"/>
+                    <Button Name="BtnCheckReader" Content="Проверка читателя" 
+                            Click="BtnCheckReader_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Процедуры -->
+            <GroupBox Header="Хранимые процедуры" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnSmartIssue" Content="Умная выдача" 
+                            Click="BtnSmartIssue_Click" Margin="5"/>
+                    <Button Name="BtnProcessOverdue" Content="Обработка просрочек" 
+                            Click="BtnProcessOverdue_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Транзакции -->
+            <GroupBox Header="Транзакции" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnSmartReturn" Content="Умный возврат" 
+                            Click="BtnSmartReturn_Click" Margin="5"/>
+                    <Button Name="BtnMassExtension" Content="Массовое продление" 
+                            Click="BtnMassExtension_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Триггеры -->
+            <GroupBox Header="Триггеры" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnViewAudit" Content="Просмотр аудита" 
+                            Click="BtnViewAudit_Click" Margin="5"/>
+                    <Button Name="BtnTestTriggers" Content="Тест триггеров" 
+                            Click="BtnTestTriggers_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Управление -->
+            <GroupBox Header="Управление" Margin="5">
+                <StackPanel>
+                    <Button Name="BtnCreateObjects" Content="Создать объекты" 
+                            Click="BtnCreateObjects_Click" Margin="5"/>
+                    <Button Name="BtnDropObjects" Content="Удалить объекты" 
+                            Click="BtnDropObjects_Click" Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+        </UniformGrid>
+        
+        <!-- Область отображения данных -->
+        <TabControl Grid.Row="2" Name="ResultTabControl">
+            <TabItem Header="Результаты запросов">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <DataGrid Grid.Row="0" Name="ResultDataGrid" 
+                              AutoGenerateColumns="True" IsReadOnly="True"
+                              GridLinesVisibility="All" AlternatingRowBackground="LightGray"/>
+                    
+                    <TextBox Grid.Row="1" Name="SqlQueryTextBox" 
+                             Height="100" TextWrapping="Wrap" 
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             FontFamily="Consolas" FontSize="10"/>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Логи и сообщения">
+                <TextBox Name="LogTextBox" TextWrapping="Wrap" 
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         FontFamily="Consolas" FontSize="10" IsReadOnly="True"/>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Статусная строка -->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock Name="StatusTextBlock" Text="Готов к работе"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Строк: "/>
+                    <TextBlock Name="RowCountTextBlock" Text="0"/>
+                    <TextBlock Text=" | Время выполнения: "/>
+                    <TextBlock Name="ExecutionTimeTextBlock" Text="0 мс"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window> 
